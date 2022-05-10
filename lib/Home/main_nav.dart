@@ -9,7 +9,6 @@ import '../providers/auth_p.dart';
 import '../providers/courses.dart';
 import '/providers/course_post.dart';
 import '../SCREENS/create_course.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import '../SCREENS/enrolled_course.dart';
 import '../SCREENS/user_home.dart';
 

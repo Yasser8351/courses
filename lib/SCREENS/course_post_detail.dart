@@ -70,7 +70,7 @@ class _CoursePostDetailState extends State<CoursePostDetail> {
                 return AspectRatio(
                   aspectRatio: _controller!.value.aspectRatio,
                   // Use the VideoPlayer widget to display the video.
-                  child: VideoPlayer(_controller),
+                  child: VideoPlayer(_controller!),
                 );
               } else {
                 // If the VideoPlayerController is still initializing, show a

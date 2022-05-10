@@ -26,9 +26,9 @@ class UserProvider with ChangeNotifier {
       final GoogleSignIn _googleSignIn = GoogleSignIn();
       final FirebaseAuth _auth = FirebaseAuth.instance;
 
-      final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
+          await googleUser!.authentication;
 
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,

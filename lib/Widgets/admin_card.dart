@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import '../SCREENS/course_detail.dart';
 import '../SCREENS/course_home.dart';
 import '../Home/course_nav.dart';
