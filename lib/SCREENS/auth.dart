@@ -4,7 +4,6 @@ import 'package:firebase/providers/auth_p.dart';
 import '/SCREENS/feed.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 // import 'package:firebase/firebase.dart' as fb;
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -12,7 +11,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class Auth extends StatelessWidget {
   static const routeName = '/auth';
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
+  //final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   // Future<String> _login() async {

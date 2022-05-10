@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import '/providers/course_post.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-import 'package:video_player/video_player.dart';
 
 class AddPostCourse extends StatefulWidget {
   @override

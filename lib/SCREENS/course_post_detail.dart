@@ -1,5 +1,11 @@
-import 'dart:ffi';
-
+/*
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/Yasser8351/firebase.git
+git push -u origin main
+*/
 import 'package:firebase/models/course_post.dart';
 import 'package:flutter/material.dart';
 import 'create_course.dart';
