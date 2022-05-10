@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:ffi';
 import 'dart:io';
 import 'dart:convert';
 import 'package:firebase/models/user_profile.dart';
@@ -36,16 +35,16 @@ class UserProvider with ChangeNotifier {
         idToken: googleAuth.idToken,
       );
 
-      final User user = (await _auth.signInWithCredential(credential)).user;
+      final User? user = (await _auth.signInWithCredential(credential)).user;
 
-      print("signed in ${user.providerData[0].displayName}");
+      print("signed in ${user!.providerData[0].displayName}");
 
       // store user data
       if (user.email != null) {
         var snap = await firestore.collection('users').doc(user.uid).get();
 
         if (snap.exists) {
-          documentSnapshots = snap.data();
+          documentSnapshots = snap.data()!;
 
           userProfile = UserProfile(
               name: documentSnapshots['displayName'],
@@ -71,7 +70,7 @@ class UserProvider with ChangeNotifier {
               enrolledCourse: []);
         }
       }
-      email = user.email;
+      email = user.email!;
     } catch (e) {
       print('error issss $e');
     }
@@ -79,7 +78,7 @@ class UserProvider with ChangeNotifier {
   }
 
   Future<void> getCurrentUser() async {
-    final User user = _auth.currentUser;
+    final User? user = _auth.currentUser;
     // print('user founddd $user');
     if (user != null) {
       await getUserFromId(user.uid);
@@ -93,7 +92,7 @@ class UserProvider with ChangeNotifier {
       // print('$id helllllllllo');
       var documentSnapshot = await firestore.collection('users').doc(id).get();
 
-      data = documentSnapshot.data();
+      data = documentSnapshot.data()!;
       // print('user data is   $data');
       userProfile = UserProfile(
           name: data['name'],

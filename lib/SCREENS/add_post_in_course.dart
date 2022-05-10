@@ -44,8 +44,8 @@ class _AddPostCourseState extends State<AddPostCourse> {
 
   final picker = ImagePicker();
   uploadFromStorage() async {
-    PickedFile videoTemp = await picker.getVideo(source: ImageSource.gallery);
-    video = File(videoTemp.path);
+    PickedFile? videoTemp = await picker.getVideo(source: ImageSource.gallery);
+    video = File(videoTemp!.path);
     setState(() {
       video = video;
     });

@@ -41,12 +41,12 @@ class MyApp extends StatelessWidget {
           create: (_) => UserProvider(),
         ),
         ChangeNotifierProxyProvider<UserProvider, CourseProvider>(
-          create: null,
+          create: (_) => CourseProvider(),
           update: (ctx, UserProvider, previous) =>
               CourseProvider(userProfile: UserProvider.userProfile),
         ),
         ChangeNotifierProxyProvider<UserProvider, CoursePostProvider>(
-          create: null,
+          create: (_) => CoursePostProvider(),
           update: (ctx, UserProvider, previous) =>
               CoursePostProvider(userProfile: UserProvider.userProfile),
         ),

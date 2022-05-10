@@ -5,7 +5,6 @@ import 'package:firebase/models/user_profile.dart';
 import '../SCREENS/create_course.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:path/path.dart' as path;
-import 'dart:ffi';
 import 'dart:io';
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
@@ -38,16 +37,27 @@ class CoursePostProvider with ChangeNotifier {
       if (video != null) {
         String fileName = DateTime.now().millisecondsSinceEpoch.toString() +
             path.basename(video.path);
-        final StorageReference storageReference = _storage
+        // final StorageReference storageReference = _storage
+        //     .ref()
+        //     .child("course")
+        //     .child(userProfile!.uid)
+        //     .child(fileName);
+
+        // final StorageUploadTask uploadTask = storageReference.putFile(video);
+
+        // StorageTaskSnapshot onComplete = await uploadTask.onComplete;
+
+        Reference storageReference = FirebaseStorage.instance
             .ref()
             .child("course")
             .child(userProfile!.uid)
             .child(fileName);
-
-        final StorageUploadTask uploadTask = storageReference.putFile(video);
-
-        StorageTaskSnapshot onComplete = await uploadTask.onComplete;
-        finalFile = await onComplete.ref.getDownloadURL();
+        Reference reference =
+            _storage.ref().child("video" + DateTime.now().toString());
+        String finalFile = await reference
+            .putFile(video)
+            .then((_) => reference.getDownloadURL());
+        //finalFile = await onComplete.ref.getDownloadURL();
         postType = "VIDEO-POST";
       }
       var result = await firestore.collection('posts').add({

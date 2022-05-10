@@ -1,16 +1,9 @@
-import 'dart:convert';
-import '../SCREENS/create_course.dart';
 import 'package:firebase/models/course.dart';
 import 'package:firebase/models/user_profile.dart';
 import 'package:path/path.dart' as path;
-import 'dart:ffi';
-import 'dart:io';
-import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import '/models/course.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -25,24 +18,35 @@ class CourseProvider with ChangeNotifier {
   bool? requestMade = false;
   List<DocumentSnapshot>? documentSnapshots;
 
-  CourseProvider({required this.userProfile});
+  CourseProvider({this.userProfile});
 
   Future<void> CreateCourse(String title, String description, var image) async {
     try {
       var id = userProfile!.uid;
       String fileName = DateTime.now().millisecondsSinceEpoch.toString() +
           path.basename(image.path);
-      final StorageReference storageReference = _storage
+      Reference storageReference = FirebaseStorage.instance
           .ref()
           .child("course")
           .child(userProfile!.uid)
           .child(fileName);
+      // final StorageReference storageReference = _storage
+      //     .ref()
+      //     .child("course")
+      //     .child(userProfile!.uid)
+      //     .child(fileName);
 
-      final StorageUploadTask uploadTask = storageReference.putFile(image);
+      Reference reference =
+          _storage.ref().child("image1" + DateTime.now().toString());
+      String fileUrl = await reference
+          .putFile(image)
+          .then((_) => reference.getDownloadURL());
 
-      StorageTaskSnapshot onComplete = await uploadTask.onComplete;
+      // final StorageUploadTask uploadTask = storageReference.putFile(image);
 
-      String fileUrl = await onComplete.ref.getDownloadURL();
+      // StorageTaskSnapshot onComplete = await uploadTask.onComplete;
+
+      // String fileUrl = await onComplete.ref.getDownloadURL();
 
       var result = await firestore.collection('course').add({
         'title': title,
@@ -96,7 +100,7 @@ class CourseProvider with ChangeNotifier {
 
       for (var key in documentSnapshots!) {
         id = key.id;
-        data = key.data();
+        data = key.data()!;
         createdByid = data['createdBy'];
 
         boolIsadmin = userProfile!.uid == createdByid;
